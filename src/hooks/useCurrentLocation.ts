@@ -6,8 +6,10 @@ export const useCurrentLocation = () => {
   let destroyRef: () => void = null;
 
   const cancelWatchPosition = () => {
-    destroyRef();
-    destroyRef = null;
+    if (destroyRef) {
+      destroyRef();
+      destroyRef = null;
+    }
     location.reset();
   };
 
@@ -16,9 +18,7 @@ export const useCurrentLocation = () => {
       location.setLoading(true);
       destroyRef = getGeoPosition(location.setLocation);
     } else {
-      if (destroyRef) {
-        cancelWatchPosition();
-      }
+      cancelWatchPosition();
     }
   });
 
