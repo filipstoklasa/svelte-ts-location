@@ -1,11 +1,17 @@
 <script lang="ts">
-  import { marker, map } from "leaflet";
+  import { icon, marker } from "leaflet";
   import renderMap from "../hooks/useRenderMap";
   import "leaflet/dist/leaflet.css";
 
   export let coords: [number, number] = [0, 0];
 
-  let avatarView: L.Marker = marker([0, 0]);
+  const avatarView: L.Marker = marker(coords, {
+    icon: icon({
+      iconUrl: "avatar.png",
+      iconSize: [28, 28],
+    }),
+  });
+
   let mapView: L.Map | null = null;
 
   const onRender = (container: HTMLDivElement) => {
@@ -28,7 +34,7 @@
 
 <style>
   .map-container {
-    width: 530px;
-    height: 300px;
+    width: 100vw;
+    height: 100vh;
   }
 </style>
